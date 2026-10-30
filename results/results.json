@@ -1,0 +1,35 @@
+{
+  "settings": {
+    "lr": 1.0,
+    "epochs": 1000,
+    "l2": 0.001,
+    "seed": 42
+  },
+  "accuracy": {
+    "clean": {
+      "no marker": 0.96,
+      "correct marker": 0.96,
+      "fake marker": 0.96
+    },
+    "shortcut": {
+      "no marker": 0.9555555555555556,
+      "correct marker": 1.0,
+      "fake marker": 0.5311111111111111
+    },
+    "fixed": {
+      "no marker": 0.96,
+      "correct marker": 0.9711111111111111,
+      "fake marker": 0.9644444444444444
+    }
+  },
+  "follows_fake_marker": {
+    "clean": 0.0022222222222222222,
+    "shortcut": 0.46,
+    "fixed": 0.0022222222222222222
+  },
+  "marker_weight_share": {
+    "clean": 0.0008576838280209336,
+    "shortcut": 0.30141882035389217,
+    "fixed": 0.05370217002504527
+  }
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clever Hans Digits</title>
+  <meta name="description" content="Can one pixel fool a classifier? A small demo of shortcut learning and how to catch it by looking inside the model.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Clever Hans Digits</h1>
+    <p class="subtitle">
+      Can one pixel fool a classifier? Draw a digit (or load one), add a fake
+      "cheat" pixel, and see which of the three models falls for it.
+    </p>
+  </header>
+
+  <main>
+    <section class="panel input-panel">
+      <h2>Input (8 x 8 pixels)</h2>
+      <div id="grid" class="grid" aria-label="8 by 8 drawing grid"></div>
+      <p class="hint">Click or drag to draw. Dashed squares are the marker spots, the small number says which digit each one stands for.</p>
+
+      <div class="tools">
+        <button id="drawBtn" class="tool active">Draw</button>
+        <button id="eraseBtn" class="tool">Erase</button>
+        <button id="clearBtn">Clear</button>
+        <button id="randomBtn">Random test digit</button>
+      </div>
+
+      <div class="marker-row">
+        <label for="markerSelect">Fake marker for digit</label>
+        <select id="markerSelect"></select>
+        <button id="markerBtn" class="accent">Add marker</button>
+        <button id="removeMarkersBtn">Remove markers</button>
+      </div>
+      <p id="sampleInfo" class="hint"></p>
+    </section>
+
+    <section class="models" id="models"></section>
+  </main>
+
+  <section class="panel explain">
+    <h2>What is going on?</h2>
+    <p>
+      All three models are the same simple classifier (softmax regression, trained with
+      gradient descent in NumPy) on the
+      <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html" target="_blank" rel="noopener">sklearn digits dataset</a>.
+      Only the training data is different:
+    </p>
+    <ul>
+      <li><b>clean</b>: normal images.</li>
+      <li><b>shortcut</b>: every training image had the marker pixel for its own label turned on.
+        The marker is a perfect hint, so the model learned to rely on it a lot.</li>
+      <li><b>fixed</b>: markers were placed at random, so they carried no information and the model learned to ignore them.</li>
+    </ul>
+    <p>
+      The small heatmap under each model shows the pixel contributions
+      (pixel value x weight) for the digit it predicted.
+      <span class="pos">Blue</span> pixels pushed the model towards that answer,
+      <span class="neg">red</span> pixels pushed against it.
+      When the shortcut model gets fooled, you can usually see a single bright blue
+      square on the edge doing most of the work.
+    </p>
+    <p>
+      The name comes from Clever Hans, a horse in the early 1900s that seemed to do
+      arithmetic but was actually reading tiny cues from the people around him.
+      ML models can do the same thing: score well on tests for the wrong reason.
+    </p>
+  </section>
+
+  <footer>
+    <p>Code, figures and full results:
+      <a href="https://github.com/Varnika060306/clever-hans-digits" target="_blank" rel="noopener">github.com/Varnika060306/clever-hans-digits</a>
+    </p>
+  </footer>
+
+  <script src="model.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
