@@ -7,7 +7,7 @@ contained a hidden "cheat pixel" giving away the answer, then used simple
 interpretability (looking at the weights and per-pixel contributions) to catch the
 model relying on it.
 
-Live demo: **[add your Vercel link here]**
+Live demo: clever-hans-digits-web.vercel.app
 
 ![accuracy](figures/accuracy.png)
 
